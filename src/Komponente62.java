@@ -3,13 +3,6 @@ import java.util.ArrayList;
 
 public class Komponente62 {
 
-    public static void main(String args[]) {
-        ArrayList<BigInteger> primes = Komponente62.getInstance().innerMethodExecute(new BigInteger("2"), new BigInteger("293"));
-        for (BigInteger bigint : primes) {
-            System.out.println(bigint.intValue());
-        }
-    }
-
     private static Komponente62 instance = new Komponente62();
     public Port port;
 
@@ -28,7 +21,7 @@ public class Komponente62 {
         }
     }
 
-    public ArrayList<BigInteger> innerMethodExecute(BigInteger rangeFrom, BigInteger rangeTo) {
+    private ArrayList<BigInteger> innerMethodExecute(BigInteger rangeFrom, BigInteger rangeTo) {
         ArrayList<BigInteger> candidates = generatePrimes(rangeFrom, rangeTo);
         ArrayList<BigInteger> solution = new ArrayList<>();
         for (BigInteger number : candidates) {
@@ -43,6 +36,9 @@ public class Komponente62 {
         BigInteger displacement = new BigInteger("2");
         BigInteger candidatePlus = candidate.add(displacement);
         BigInteger candidateMinus = candidate.subtract(displacement);
+        if(candidateMinus.intValue() < 0) {
+            candidateMinus = candidatePlus;
+        }
         if ((candidateMinus.sqrt().multiply(candidateMinus.sqrt()).equals(candidateMinus)) || (candidatePlus.sqrt().multiply(candidatePlus.sqrt()).equals(candidatePlus))) {
             return true;
         } else {
